@@ -1,0 +1,20 @@
+---
+- name: "Install Python packages"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ python_packages }}"
+
+- name: "Install virtualenvwrapper"
+  pip:
+    name: virtualenvwrapper
+    executable: pip3
+
+- name: "Set python path for virtualenvwrapper"
+  lineinfile:
+    path: /etc/profile.d/virtualenv_python36.sh
+    line: "VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6"
+    create: yes
+    owner: root
+    group: root
+    mode: 0644
